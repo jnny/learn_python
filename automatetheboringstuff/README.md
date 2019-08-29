@@ -293,6 +293,49 @@ def div42by(divideBy):
 ## Section 6: Lists
 
 ### Part 13: The List Data Type
+* a _list_ contains values, called _items_
+* lists are comma-delineated: list = ['x','y','z']
+* lists use _integer indexes_ to define items' positions in the list: list[0] --> x
+* lists can contain lists, eg: list = [['x','y','z'], [1, 2, 3]]
+    * list[0] --> ['x','y','z']
+    * list[0][1] --> 'y'
+    * list[1][3] --> 3
+    * list[0][-1] --> 'z'
+    * a _slice_ contains start and end indexes separated by a colon, eg: list[1:2] -> 'y'
+        * as such, a slice creates a new list value 
+* Assignment variables can also define new list values, eg:
+```python
+spam = ['cat','turtle','lizard']
+spam[2] = 'iguana'
+spam
+```
+returns: [cat','turtle','iguana']
+
+and redefining _spam_ as a _slice_ redefines the variables up to but not including the end of the slice. eg:
+```python
+spam[1:3] = ['RAT', 'pigeon','tigress']
+spam
+```
+returns: ['cat', 'RAT', 'pigeon', 'tigress']
+
+and spam[:2] returns ['cat', 'RAT']
+
+and spam[1:] returns ['RAT', 'pigeon', 'tigress'].
+
+* We can delete an item using _del_:
+```python
+spam = [1, 2, 3]
+del spam[1]
+spam
+````
+which would return [1, 3]
+
+* Lists can also be treated as strings - eg; len([1,2,3]) -> 3, and [1,2,3] * 3 --> [1,2,3,1,2,3,1,2,3]
+* Can find an item using _in_, eg: 'RAT' in ['RAT', 'pigeon', 'tigress'] --> True
+    * Can do the opposite with _not in_ 
+
+#### Functions learned:
+* [list](https://docs.python.org/3/library/functions.html#func-list) - breaks up the value into its components in a list
 
 ### Part 14: For Loops with Lists, Multiple Assignment, and Augmented Operators
 
