@@ -267,10 +267,28 @@ def spam():
 ## Section 4: Handling Errors with try/except
 
 ### Part 11: Try and Except Statements
+* see [tryandexceptexample.py](tryandexceptexample.py) and [howmanycats.py](howmanycats.py)
+* used for Input Validation
+* add _try:_ clause before the code - if it throws an error, moves on to the _except_ clause and runs that code
+* _except_ clauses can either refer directly to the error (eg _ZeroDivisionError_) or standalone to catch all errors, eg:
+```python
+def div42by(divideBy):
+    try:
+        return 42 / divideBy
+    except ZeroDivisionError:
+        print('Error: You tried to divide by zero.')
+```
 
 ## Section 5: Writing a Complete Program: Guess the Number
 
 ### Part 12: Writing a "Guess the Number" Program
+* see [guessthenumber.py](guessthenumber.py) 
+* will first need to import the _random_ module
+* define input variables (here, they are _name_, _secretNumber_, and _guess_)
+** secretNumber = random.randint(1, 20)
+* create a _for_ loop for the variable _guessesTaken_ in range(1, 7) -> caps the number of guesses to between 1 and 6
+* remember to end the _for_ loop with _else: break_
+* remember that any integer variable needs a _str()_ to concatenate
 
 ## Section 6: Lists
 
