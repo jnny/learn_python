@@ -5,18 +5,20 @@ Useful resource: [https://pythontutor.com/visualize.html]
 ## Section I: Python Basics
 
 ### Part II: Basic Terminology and Using IDLE
-* IDLE comes with Python - other popular editors include Sublime and PyCharm
-* Expressions = Values and Operators
+* [IDLE](https://docs.python.org/3/library/idle.html) comes with Python - other popular editors include [Sublime](https://realpython.com/setting-up-sublime-text-3-for-full-stack-python-development/) and [PyCharm](https://www.jetbrains.com/pycharm/)
+* _Expressions_ = _Values_ and _Operators_
 * Parentheses override precedents
 * "ints" and "floats" - complete vs decimals
-* adding apostrophes creates a String, unquoted/raw
+* adding apostrophes creates a _String_, unquoted/raw
 ** add operators to create string concantenations
-*** eg; print('Hello' + ' world') becomes 'Hello world'
+*** eg; _print('Hello' + ' world')_ becomes 'Hello world'
 * assignment statement replaces prior definition
-* input() waits for user input
+* _input()_ waits for user input
 * input always returns a string
-* can't do string concantenation on integers - this is how one does math
-** eg; int('26') + 1 = 27
+* can't do string concantenation on integers - this is how one does math:
+```python
+int('26') + 1 = 27
+```
 
 ### Part III: Writing Our First Program
 _EXAMPLE:_ 
@@ -28,15 +30,15 @@ print('You will be ' + str(int(myAge) + 1) + ' in a year.')
 3. print('You will be '27' + ' in a year.')
 4. print('You will be 27 in a year.')
 
-### Functions learned:
-- print - display value passed
-- input() - user-created data
-- len() - takes a string value and returns an integer value of the string's length. eg:
+#### Functions learned:
+- [print](https://docs.python.org/3/library/functions.html#print) - display value passed
+- [input](https://docs.python.org/3/library/functions.html#input) - user-created data
+- [len](https://docs.python.org/3/library/functions.html#len) - takes a string value and returns an integer value of the string's length. eg:
 ```python
 print(len(myName)) 
 ```
 - gives the LENgth of characters in the name input 
-- str, int, float - convert values' data type
+- [str](https://docs.python.org/3/library/functions.html#func-str), [int](https://docs.python.org/3/library/functions.html#int), [float](https://docs.python.org/3/library/functions.html#float) - convert values' data type
 
 ## Section 2: Flow Control
 
@@ -67,7 +69,7 @@ name = input()
 * Else always comes at the end, executed if all previous conditions have been false
 
 ### Functions learned:
-* bool() returns an equivalent boolean value (True or False) 
+* [bool](https://docs.python.org/3/library/functions.html#bool): returns an equivalent boolean value (True or False) 
 
 ## Part VI: While Loops
 * So long as the While statements are true, the next block of code executes
@@ -81,7 +83,7 @@ name = input()
 * see [forloop_example.py](forloop_example.py)
 
 ### Functions learned:
-* range(101) - range up to but not including 101
+* [range](https://docs.python.org/3/library/functions.html#range] - range up to but not including 101
     * almost interchangeale to a while loop
     * range (x, y): x-y range
     * step argument: third variable - range (x, y, z) -  range continued up by z
@@ -93,13 +95,13 @@ name = input()
     * imports the module for the function that exists inside it
     * in this example, random.randit imports the random integer function to the program
     * can use import * to import all modules in a funciton
-* _sys.exit_ function ends the module early
+* [sys.exit](https://docs.python.org/3/library/sys.html#sys.exit) function ends the module early
 * Third-party modules are installed via pip!
     * See [Appendix A of this course](https://automatetheboringstuff/appendixa) for a comprehensive list
 * pyperclip: requires install of a clipboard application (eg xclip in linux), then 'import pyperclip' into the shell - then run pyperclip.copy('STRING') and pyperclip.paste() to repaste said string
 
 ### Functions learned:
-* _sys.exit_ - ends the module early
+* [sys.exit](https://docs.python.org/3/library/sys.html#sys.exit) - ends the module early
 
 ## Part IX: Writing Your Own Functions
 * Mini-program within a program 
