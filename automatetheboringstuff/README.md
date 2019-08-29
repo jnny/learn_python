@@ -172,7 +172,7 @@ spam = 42 # this is a _global_ variable
 ** 4. Can use the same name for different variables if they're in different scopes
 * Takeaway: local variables exist under the hierarchical nomenclature control of their functions
 * Global variables can be run from a local scope:
-````python
+```python
 def spam():
     print(eggs)
 eggs = 42
