@@ -1,6 +1,6 @@
 # Automate the Boring Stuff with Python - Notes
 
-Useful resource: pythontutor.com/visualize.html
+Useful resource: [https://pythontutor.com/visualize.html]
 
 ## Section I: Python Basics
 
@@ -28,14 +28,14 @@ print('You will be ' + str(int(myAge) + 1) + ' in a year.')
 3. print('You will be '27' + ' in a year.')
 4. print('You will be 27 in a year.')
 
-###Functions learned:###
+### Functions learned:
 - print - display value passed
 - input() - user-created data
 - len() - takes a string value and returns an integer value of the string's length. eg:
 ```python
 print(len(myName)) 
 ```
-    * gives the LENgth of characters in the name input 
+- gives the LENgth of characters in the name input 
 - str, int, float - convert values' data type
 
 ## Section 2: Flow Control
@@ -61,12 +61,12 @@ print(len(myName))
 ```python
 name = input() 
 ```
-    * --> if name:   <-- if anything is input for a name, the 'if name:' statement is 'truthy' and runs the next block
-    * better to be more specific, eg: if name !='':
-    * Falsey values are 0, 0.0, and empty strings '' - can check using the bool() function
+* --> if name:   <-- if anything is input for a name, the 'if name:' statement is 'truthy' and runs the next block
+* better to be more specific, eg: if name !='':
+* Falsey values are 0, 0.0, and empty strings '' - can check using the bool() function
 * Else always comes at the end, executed if all previous conditions have been false
 
-### Functions learned:###
+### Functions learned:
 * bool() returns an equivalent boolean value (True or False) 
 
 ## Part VI: While Loops
@@ -78,9 +78,9 @@ name = input()
     * continue statements: skips to the start of the while loop (rechecks the condition)
 
 ## Part VII: For Loops
-* see [forloop_example.py]
+* see [forloop_example.py](forloop_example.py)
 
-###Functions learned:###
+### Functions learned:
 * range(101) - range up to but not including 101
     * almost interchangeale to a while loop
     * range (x, y): x-y range
@@ -93,10 +93,13 @@ name = input()
     * imports the module for the function that exists inside it
     * in this example, random.randit imports the random integer function to the program
     * can use import * to import all modules in a funciton
-* sys.exit function ends the module early
+* _sys.exit_ function ends the module early
 * Third-party modules are installed via pip!
     * See [Appendix A of this course](https://automatetheboringstuff/appendixa) for a comprehensive list
 * pyperclip: requires install of a clipboard application (eg xclip in linux), then 'import pyperclip' into the shell - then run pyperclip.copy('STRING') and pyperclip.paste() to repaste said string
+
+### Functions learned:
+* _sys.exit_ - ends the module early
 
 ## Part IX: Writing Your Own Functions
 * Mini-program within a program 
@@ -109,6 +112,7 @@ name = input()
 'Hello has ' + str(len('hello')) + ' letters in it.'
 ```     
 becomes:
+
     Hello has 5 letters in it.
 
 Eg: 
@@ -129,6 +133,7 @@ print('Hello', end='')
 print('World')
 ```
 becomes:
+
     HelloWorld
 
 Eg:
@@ -136,12 +141,15 @@ Eg:
 print('cat', 'dog', 'mouse')
 ```
 becomes:
+
     cat dog mouse
+
 but:
 ```python
 print('cat', 'dog', 'mouse', sep='ABC')
 ```
 becomes:
+
     catABCdogABCmouse
 
 * Keyword arguments to functions are usually for optional arguments. The print() function has keyword arguments 'end' and 'sep'
@@ -157,7 +165,7 @@ def eggs():
 spam = 42 # this is a _global_ variable
 ```
 * A variable can't be both local and global. Local variables are temporary and only exist for the lifecycle of a function
-* 3 rules: 
+### 3 rules: 
 1. Code in a global scope can't use local variables
 2. Code in a local scope can access global variables
 3. Code in one function's local scope cannot use variables in another local scope
