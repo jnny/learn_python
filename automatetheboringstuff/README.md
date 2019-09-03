@@ -338,14 +338,147 @@ which would return [1, 3]
 * [list](https://docs.python.org/3/library/functions.html#func-list) - breaks up the value into its components in a list
 
 ### Part 14: For Loops with Lists, Multiple Assignment, and Augmented Operators
+* Range Objects, eg range(4) is a "list-like" data type (sequences)
+* the third integer in the range list is the step vale. eg: range(1, 100, 2) outputs a list from 1 to 100 increasing by 2 each time
+```python
+supplies = ['pens', 'staplers', 'flame-throwers', 'binders']
+for i in range(len(supplies)):
+    print('Index ' + str(i) + ' in supplies is: ' + supplies(i))
+
+Index 0 in supplies is: pens
+Index 1 in supplies is: staplers
+Index 2 in supplies is: flame-throwers
+Index 3 in supplies is: binders
+```
+
+Multiple Assignments:
+* multiple variables separated by commas on the left side of the list, eg:
+
+```python
+cat = ['fat', 'orange', 'loud']
+size, color, disposition = cat
+size
+>>> fat
+color
+>>> orange
+disposition
+>>> loud
+```
+
+Swapping Variables
+* multiples variables on either side of the =
+** eg: a, b = b, a will swap the variables 
+
+Augmented Assignment Operators
+* shortcut for reassigning variable name, eg:
+```python
+spam = 42
+spam = spam + 1
+spam += 1 --> spam = 44
+```
+
+Augmented assignment statements:
+* +=
+* -=
+* *=
+* /=
+* %=
 
 ### Part 15: List Methods
+* like functions, except methods are attached to certain values
+* how to use: variable.method, eg:
+**  spam.index('x') gets you the position of x in the spam list 
+* append(): add new values to a list
+* insert(position, value): insert new value in place of position x
+* remove(): removes a value entirely from the list
+** unlike the _del_ statement, which deletes a value as defined by its position in the list
+* list methods only act on the first instance of a variable
+* sort(): automatically puts a list in order from least to greatest, or alphabetically if strings
+** can add a _reverse_ element to reverse the order: spam.sort(reverse=True)
+** upper case values come before lower case unless you add a _key=(str.lower)_ element 
 
 ### Part 16: Similarities Between Lists and Strings
+* can do many of the same things with both lists and strings
+* however, while a list is mutable, a string is immutable - cannot be changed
+** to modify a sring, use slices. Eg:
+```python
+name = "Zophie a cat"
+newName = name[0:7] + 'the' + name[8:12]
+>>> Zophie the cat
+```
+* any string, once defined, stores the reference even if the variables are changed afterwards. Eg:
+```python
+spam = 42
+cheese = spam
+spam = 100
+>>> spam
+100
+>>> cheese
+42
+```
+* "variables don't contain lists per se, just references to the lists" 
+* "Immutable values don't have this problem because they can't be modified 'in place'. They can only be replaced by new values."
+
+#### Passing Lists in Function Calls
+* When passing a list argument to a function, you're actually passing the list _reference_
+* Changes made to a list in a function will affect the list outside the function
+
+_copy.deepcopy() Function_: duplicates the list and returns a reference to that new list. Eg:
+```python
+spam = ['A','B','C','D']
+cheese = copy.deepcopy(spam)
+```
+* now we can make changes to the new list, cheese, while the spam list retains its original properties
+
+Line Continuation:
+* when defining a list, can continue to the next line to make things line up nicely, either by defining each item followed by a comma, or through the use of _+ \_ at the end of a line
+
+More info:
+*["Facts and Myths about Python names and values"](https://youtu.be/_AEJHKGk9ns) by Ned Batchelder
 
 ## Section 7: Dictionaries
 
+
 ### Part 17: The Dictionary Data Type
+Dictionaries are composed of many values, called key-value pairs, wrapped in curly brackets - eg:
+```python
+myCat = {'size': 'fat', 'color': 'gray', 'disposition': 'loud'}
+>>> myCat['size']
+'fat'
+```
+* Lists are unordered
+* _keys_ method: list(listName.keys()) - lists all keys
+* _values_ method: list(listName.values()) - lists all values
+* _items_ method: list(listName.items()) - lists all key-value pairs (items or _tuples_)
+* for _for loops_, can call tuples and assign to variables eg:
+```python
+for k, v in eggs.items():
+    print(k, v)
+```
+* _tuples_: the same thing as lists, except they are immutable and use parentheses instead of square brackets
+* _get_ method: takes two arguments: the key of the value and fallback default value returned if that key isn't in the dictionary, eg:
+```python
+>>> eggs
+{'name': 'Zophie', 'species': 'cat', 'age': 8}
+>>> eggs.get('age', 0)
+8
+>>> eggs.get('color','')
+''
+```
+* _setdefault_ method: a way to define a default variable in one line of code, eg:
+```python
+eggs = {'name': 'Zophie', 'species': 'cat', 'age': 8}
+>>> eggs.setdefault('color', 'black')
+'black'
+>>> eggs
+{'name': 'Zophie', 'color': 'black', 'species': 'cat', 'age': 8}
+```
+* can't change the default pair once created
+* _.upper_: returns an uppercase form of the string
+* _'''_: enables you to input many lines unformatted
+* _pprint()_: pretty print module to list items in a dictionary alphabetically.  must prepend your code with 'import pprint'
+* _pformat()_: pprint function to return items as a string rather than a long column list
+ 
 
 ### Part 18: Data Structures
 
