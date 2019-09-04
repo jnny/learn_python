@@ -481,14 +481,63 @@ eggs = {'name': 'Zophie', 'species': 'cat', 'age': 8}
  
 
 ### Part 18: Data Structures
+* a dictionary could contain multiple lists of key-value pairs
+* additional lists can be added to a dictionary using the .append method
+* in Al's tic-tac-toe example, _x_ and _o_ are the values, with keys indicating position (top-left, bottom-middle, etc)
+* define a function that will use the data structure, eg:
+```python
+def printBoard(board):
+	print(board['top-L'] + '|' + board['top-M'] + | + board('top-R'])
+	print('-----')
+	print(board['mid-L'] + '|' + board['mid-M'] + | + board('mid-R'])
+	print('-----')
+	print(board['low-L'] + '|' + board['low-M'] + | + board('low-R'])
+```
+* type(VALUE) will tell you the class of a value (int, str, dict, etc)
 
 ## Section 8: More About Strings
 
 ### Part 19: Advanced String Syntax
+* escape characters: let you use both single and double quotes in a string
+    * \' - single quote
+    * \" - double quote
+    * \t - Tab
+    * \n - Newline
+    * \\ - Backslash
+* raw string: place a lower-case 'r' before the string: print(r'That is Carol's cat') will include the \
+* multi-line: triple double-quotes, """ surround the strings split accross multiple lines
+* strings can be treated just like lists - you can find the position (spam[1]), take out slices (spam[1:4]), in/not in, etc
 
 ### Part 20: String Methods
+* string methods return a new string value rather than modify in place (as they're immutable)
+* use _.lower_ method to ignore casing in input value
+* _.isupper_ and _.islower_ to ask if a string is all upper- or lower-case
+* Can call the method after the string to redefine the string, eg 'Hello'.upper().isupper() evaluates to True
+
+Other string methods:
+    * _isalpha()_ - letters only
+    * _isalnum()_ - letters and number only
+    * _isdecimal()_ - numbers only
+    * _isspace()_ - whitespace only
+    * _istitle()_ - titlecase only
+    * _.startswith_ - beginning characters of a string
+    * _.endswith()_ - ending characters of a string
+* Can also use an index point to see if value is true only at a point in a string, eg: 'Hello world!'[5].isspace() returns True
+* _.join_ - used to join a value in between a list of strings, eg: ', '.join(['cats', 'rats', 'bats']) returns "cats, rats, bats"
+* _.split_ - splits up a string by whitespace characters, or a defined value eg .split('m')
+* _.rjust()_ - right-justify(totalcharacterlength, separatedBy)
+* _.ljust()_ - left-justify(totalcharacterlength, separatedBy) eg; .ljust(10, '*')
+* _.center()_ - same as above but centers
+* _.strip()_, _.lstrip()_, _.rstrip()_ - removes whitespace or whatever valkue is specified inside ()
+* _.replace(characterToReplace, replacementCharacter)
+
+pyperclip
+* pyperclip.copy('TEXT') copies TEXT to the clipboard
+* pyperclip.paste will paste from the clipboard
 
 ### Part 21: String Formatting
+* also called String Interpellation: use %s conversion specifiers to indicate a value:
+    * 'Hello &s, you are invited to a party at %s at %s. Please bring %s.' % (name, place, time, food)
 
 ## Section 9: Running Programs from the Command Line
 
