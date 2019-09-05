@@ -542,14 +542,68 @@ pyperclip
 ## Section 9: Running Programs from the Command Line
 
 ### Part 22: Launching Python Programs from Outside IDLE
+All programs begin with a She-bang line:
+```python
+#! /usr/bin/python3
+```
+
+* Batch Files / Shell Scripts: run multiple commands, ends in .bat
+* %* - forward any command line arguments to this program
+* PATH Environment Variables - list of source folders from which to launch programs
 
 ## Section 10: Regular Expressions
 
 ### Part 23. Regular Expression Basics
+* Mini-programming language for specifying text patterns
+* _import re_ module imports the regular expressions module
+* _re.compile()_ - where to pass raw strings, eg:
+```python
+import re
+
+message = 'Call me at 415-555-1234 tomorrow, or at 415-555-9999.'
+
+phoneNumRegex = re.compile(r'\d\d\d-\d\d\d-\d\d\d\d)
+
+mo = phoneNumRegex.search(message)
+
+print(mo.group())
+```
+* mo = 'match object' - returned if a pattern is found
+   * mo.group() - returns the actual matched text from the searched string
+* _.findall_ - will find every occurrence of a pattern in a given string (eg: phoneNumRegex.finall('Call me at 415-555-1234')
 
 ### Part 24. Regex Groups and the Pipe Character
+* add parentheses to create _groups_ in the regex, then you can use the group() match object to get matching text from one group, eg:
+```python
+phoneNumRegex = re.compile(r'(\d\d\d)-(\d\d\d-\d\d\d\d)')
+>>> mo.groups()
+'415', '555-1234
+>>> mo.group(1)
+'415'
+>>> mo.group(2)
+555-1234
+>>> mo.group(0)
+'415-555-1234'
+>>> areaCode, mainNumber = mo.groups()
+>>> print(areaCode)
+415
+``` 
+* escape parentheses with a backslash
+* Pipes (|) - used to match one of many expressions, eg: >>> batRegex = re.compile(r'Bat(man|mobile|copter|bat)')
 
 ### Part 25. Repetition in Regex Patterns and Greedy/Nongreedy Matching
+* _?_ - flags preceding group as an optional pattern match, eg:
+```python
+phoneRegex = re.compile(r'(\d\d\d)?\d\d\d-\d\d\d\d')
+>>>phoneRegex.search('My phone number is 555-1234. Call me.')
+<_sre.SRE_Match object; span=(19, 27), match='555-1234'>
+```
+* _*_ - star character means to match 0 or more times (endless part of the pattern, eg 'batwowowowowman'
+* _+_ - must appear at least once
+* _{x}_ - must match x number of times in a row
+* _{x,y}_ - match a range of repetitions between x and y
+* 'Greedy' matching means regex will by default find the longest possible match
+* _{}?_ = 'Non-greedy' matching, will find the shortest matching string  
 
 ### Part 26. Regex Character Classes and the findall() Method
 
