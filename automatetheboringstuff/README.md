@@ -606,12 +606,111 @@ phoneRegex = re.compile(r'(\d\d\d)?\d\d\d-\d\d\d\d')
 * _{}?_ = 'Non-greedy' matching, will find the shortest matching string  
 
 ### Part 26. Regex Character Classes and the findall() Method
+* _findall()_ method: search a regex string for all matches
+```python
+>>> import re
+>>> phoneRegex = re.compile(r'\d\d\d-\d\d\d-\d\d\d\d')
+>>> phoneRegex
+re.compile(`\\d\\d\\d-\\d\\d\\d-\\d\\d\\d\\d')
+```
+* phoneRegex.search(dataDefined) - returns a _match object_
+* phoneRegex.finall(dataDefined) - returns all strings (matches) in the data
+** if there are groups (marked with parentheses), findall will return tuples - $
+
+character classes:
+* \d - any numeric digit form 0 to 9
+* \D - any character NOT a numeric digit from 0-9
+* \w - any letter, numeric digit, or the underscore character ("words")
+* \W - any character NOT a letter, numeric digit, or the underscore character
+* \s - any space, tab, or newline character ("space")
+* \S - any character NOT a space, tab, or newline
+* + = one or more
+* * = zero or more
+* ? = 0 or 1 occurences
+* [character classes, eg; ranges] - such as: [aeiou], [a-f], [a-z], [a-fA-G]
+* ^ = inverted character classes - so anything that's NOT inside the brackets
 
 ### Part 27. Regex Dot-Star and the Caret/Dollar Characters
+* ^ - match must start at the beginning of the searched text
+* $ - at end of regex to indicate it must match at the end of the searched text
+* if you have both ^ and $, must begin and end entirely with the regex in betwe$
+* . = any character except for newline
+* .* to match anything - any pattern whatsoever!
+* .*? - non-greedy match, eg: 
+```python
+serve = '<To serve humans> for dinner.>'
+nongreedy = re.compile(r'<(.*?)>'
+nongreedy.findall(serve)
+['To serve humans']
+
+vs:
+greedy = re.compile(r'<{.*}>')
+greedy.findall(serve)
+['To serve humans> for dinner.']
+```
+* _re.DOTALL_ = dot means everything, including newlines
+* _re.IGNORECASE_ - or re.I for short
 
 ### Part 28. Regex sub() Method and Verbose Mode
+* _sub_ method - basically a find and replace: 
+```python
+>>> namesRegex = re.compile(r'Agent \w+')
+>>> namesRegex.sub('REDACTED','Agent Alice gave the secret document to Agent Bob.')
+'REDACTED gave the secret documents to REDACTED.'
+    # or match some of the text with:
+>>> agentNamesRegex = re.compile(r'Agent (\w*)\w*')
+#                                          ^match first letter/#
+namesRegex.sub(r'Agent \1******', 'Agent Alice gave the secret documents to Agent Bob.')
+'Agent A**** gave the secret documents to Agent B****.'
+```  
+* _re.VERBOSE_ - can expand the code onto separate lines, add whitespace and comments. add at end of function eg (r'\d\d, re.VERBOSE)
+* pass multiple arguments, eg re.DOTALL | re.IGNORECASE using the bitwise operator '|'
 
 ### Part 29. Regex Example Program: A Phone and Email Scraper
+```python
+import re, pyperclip
+
+# Create a regex for phone numbers
+phoneRegex = re.compile r'''
+# 415-555-0000, 555-0000, (415) 555-0000, 555-0000 ext 12345, ext. 12345, x12345
+
+(	# put all of the below into ONE group to satisfy findall()
+((\d\d\d)|(\(\d\d\d\)))?    	# area code (optional)
+(\s|-)	# first separator
+\d\d\d	# first 3 digits
+-	# seperator
+\d\d\d\d	# last 4 digits
+(((ext(\.)?\s)|x)	# extension word-part (optional)
+  (\d{2,5}))?	# extension number-part (optional)
+)
+''', re.VERBOSE)
+
+# Create a regex for email addresses
+emailRegex = re.compile(r'''
+# some.+_thing@something.com
+
+[a-zA-Z0-9_.+]+	# name part
+@	# @ symbol
+[a-zA-Z0-9_.+]+ # domain name part 
+
+# Get the text off the clipboard
+text = pyperclip.paste()
+
+# Extract the email/phone from this text
+extractedPhone = phoneRegex.finall(text)
+extractedEmail = emailRegex.findall(text)
+
+allPhoneNumbers = []
+for phoneNumber in extractedPhone:
+    allPhoneNumbers.append(phoneNumber[0])
+
+print(allPhoneNumbers)
+
+# Copy the extracted email/phone to the clipboard
+results = '\n'.join(allPhoneNumbers) + '\n' + '\n'.join(extractedEmail)
+pyperclip.copy(results)
+```
+
 
 ## Section 11: Files
 
