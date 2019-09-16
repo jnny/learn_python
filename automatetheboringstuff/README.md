@@ -697,7 +697,7 @@ emailRegex = re.compile(r'''
 text = pyperclip.paste()
 
 # Extract the email/phone from this text
-extractedPhone = phoneRegex.finall(text)
+extractedPhone = phoneRegex.findall(text)
 extractedEmail = emailRegex.findall(text)
 
 allPhoneNumbers = []
@@ -711,22 +711,111 @@ results = '\n'.join(allPhoneNumbers) + '\n' + '\n'.join(extractedEmail)
 pyperclip.copy(results)
 ```
 
-
 ## Section 11: Files
-
 ### Part 30. Filenames and Absolute/Relative File Paths
+* use strings to represent file paths and name
+* _import os_
+    * os.path.join('folder1', 'folder2')
+        * os.sep
+             * on windows: '\\'
+* _os.getcwd()_ - get current working directory
+* _os.chdir('/projects/python/') - change cwd
+* . = current folder; .. = parent folder
+* _os.path.abspath('file.png')_ - show absolute path of file
+* _os.path.isabs('../../file.png')_ - will return true or false
+* _os.path.relpath('/projects/python/file.png', '/projects/')_ --> '/python/file.png' (shows location of file relative to given path)
+* _os.path.dirname('/projects/python/file.png')_ --> '/projects/python/'
+* _os.path.basename('/projects/python/file.png')_ --> 'file.png'
+* _os.path.exists('/projects/python/file.png')_ --> will return True or False if file in path exists
+* _os.path.isfile()_ and _os.path.isdir()_ will return True or False
+* _os.path.getsize('/pth/to/file')_ - get the size of a file in bytes
+* _os.listdir('/projects/')_ - will output all files and folders in specified folder:
+```python
+>>> import os
+	       
+>>> totalSize = 0
+	       
+>>> for filename in os.listdir('/home/jnny/projects'):
+	       if not os.path.isfile(os.path.join('/home/jnny/projects', filename)):
+		       continue
+	       totalSize = totalSize + os.path.getsize(os.path.join('/home/jnny/projects', filename))
+>>> totalSize
+
+16635437
+```
+* _os.makedirs()_ - mkdir 
 
 ### Part 31. Reading and Writing Plaintext Files
+* plaintext vs binary files
+* _open()_
+    * use _open('filepath', 'w')_ to open in WRITE mode or _'a'_ to APPEND a string
+* _file.read()_
+* _file.close()_
+* _file.readline()_ - returns a list of strings
+* _file.write()_ - strings to write to the file (needs to first be opened in Write mode
+
+* import shelve_ - a "shelf" is a persistent object (similar to a dictionary) stored in a binery file
+```python
+>>> import shelve
+	       
+>>> shelfFile = shelve.open('mydata')
+	       
+>>> shelfFile['garden'] = ['butterfly', 'passionflower', 'figs', 'yurt', 'firepit', 'mint']
+	       
+>>> shelfFile.keys()
+	       
+KeysView(<shelve.DbfilenameShelf object at 0x7f048a94aef0>)
+>>> list(shelfFile.keys())
+	       
+['garden']
+>>> list(shelfFile.values())
+	       
+[['butterfly', 'passionflower', 'figs', 'yurt', 'firepit', 'mint']]
+```
 
 ### Part 32. Copying and Moving Files and Folders
+* _import shutil_ - functions for letting you copy, move, rename or delete files
+* _shutil.copy('file1', 'file2')_ - can copy to a folder and optionally rename at the same time
+* _shutil.copytree('folder1', folder2')_ - copy a folder to a new folder
+* _shutil.move('filename', 'newfilepath/filename')_ - moves the file to new directory OR renames it
 
 ### Part 33. Deleting Files
+* _os.unlink('filename')_ - will basically delete the file
+* _os.rmdir('somefolder')_ - delete an empty folder
+* _shutil.rmtree()_ - will delete a folder and all of its contents
+
+```python
+import os 
+
+os.chdir('/home/jnny/projects')
+
+for filename in os.listdir():
+	if filename.endswith('.txt'):
+		os.unlink(filename)
+```
+
+* _send2trash.send2trash()_ - module (installed via pip) to send deleted files to temporary trashbin
 
 ### Part 34. Walking a Directory Tree
+```python
+>>> import os
+>>> for folderName, subfolders, filenames in os.walk('/home/jnny'):
+	print('The folder is ' + folderName)
+	print('The subfolders in ' + folderName + ' are: ' + str(subfolders))
+	print('The filenames in ' + folderName + ' are: ' + str(filenames))
+	print()
+
+	for subfolder in subfolders:
+		if 'fish' in subfolder:
+			os.rmdir(subfolder)
+```
+* This will create a "walkthrough" of my home folder, in this example	
+* can then add _for_ loops to execute code on a set of files or folders
 
 ## Section 12: Debugging
-
 ### Part 35. The raise and assert Statements
+* python will raise an _exception_ when there's an error
+* you can also raise your own exceptions using _raise Exception('This is an error message.')_
 
 ### Part 36. Logging
 
