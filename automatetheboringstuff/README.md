@@ -816,10 +816,30 @@ for filename in os.listdir():
 ### Part 35. The raise and assert Statements
 * python will raise an _exception_ when there's an error
 * you can also raise your own exceptions using _raise Exception('This is an error message.')_
+* see [[boxprint.py]]
+* _import traceback_ - this creates a _traceback_, which will show you on which line your error occurred and which exception it called
+* _trackback.format_exc()_ - 
+* _assert_ statements - create a condition that *must* be true in order for the code to run
+   * assert condition, 'Error message'
+* Assertions are for detecting PROGRAMMER errors that are not meant to be recovered from. User errors should raise exceptions
 
 ### Part 36. Logging
+```python
+>>> import logging
+	       
+>>> logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+```
+* logging information is a lot more comprehensive than print() calls
+* _logging.disable(logging.CRITICAL) - easy to turn off logging, hee at the critical level or lower (all levels, basically)
+* five levels: logging.debug, logging.info, logging.warning, logging.error, logging.critical
+* logging to a text file: add (filename='log.txt',) to beginning of logging config parameters
 
 ### Part 37. Using the Debugger
+* click on IDLE's _Debug_ menu and select _Debugger_ to enable
+* ignore the "dunder" variables (double underscore variables shown in the global debug output)
+* it will pause after each line - select _Over_ to continue to the next
+* _Step_ and _Out_ follows the execution of a function rather than stepping _Over_ - _Out_ steps back outside of the function call
+* _Breakpoints_: will cause the debugger to stop at a certain point in the program. To set it, highlight the breakpoint code, right click and select _Set breakpoint_
 
 ## Section 13: Web Scraping
 
