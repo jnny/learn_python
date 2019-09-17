@@ -842,17 +842,119 @@ for filename in os.listdir():
 * _Breakpoints_: will cause the debugger to stop at a certain point in the program. To set it, highlight the breakpoint code, right click and select _Set breakpoint_
 
 ## Section 13: Web Scraping
-
 ### Part 38. The webbrowser Module
+```python
+>>> import webbrowser
+	       
+>>> webbrowser.open('https://jennyryan.net')
+```
+* see [[mapit.py]] - reads an address off of clipboard or through command line arguments and opens the location directly in the browser
+* CREATING BATCH FILES - refer to Lesson 22
 
 ### Part 39. Downloading from the Web with the Requests Module
+* _requests_ module (needs to be installed with pip) gets all the data from a URL
+* res = requests.get('https://jennyryan.net')
+* res.status_code - tells you if the url is viable (result: 200)
+* res.raise_for_status() - raises an exception if the url isn't found
+* _write binary_ - add , 'wb') to return binary instead of text data to maintain the unicode encoding of the text:
+    * Python & Unicde: http://bit.ly/unipain 
+```python
+>>> import requests
+	       
+>>> res = requests.get('https://virtualcampfi.re/chapter1.htm')
+	       
+2019-09-16 15:26:47,246 - DEBUG - Starting new HTTPS connection (1): virtualcampfi.re:443
+2019-09-16 15:26:47,448 - DEBUG - https://virtualcampfi.re:443 "GET /chapter1.htm HTTP/1.1" 200 16004
+>>> res.status_code
+	       
+200
+>>> len(res.text)
+	       
+45684
+>>> print(res.text[:500])
+	       
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>The Virtual Campfire - Introduction</title>
+<!-- TemplateEndEditable -->
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<style type="text/css">
+<!--
+.style3 {font-size: 12px}
+body {
+	background-color: #FFFF66;
+	margin-left: 100px;
+	
+>>> res.raise_for_status()
+	
+>>> playFile = open('chapter1.txt', 'wb')
+	
+>>> for chunk in res.iter_content(10000):
+	playFile.write(chunk)
+
+	
+10000
+10000
+10000
+10000
+5684
+
+>>> playFile.close()
+```
+* _iter_content_ method: save files to your hard drive
+* learn more at https://requests.readthedocs.org
+* if you have to login to the site or the URL is complicated, use Selenium (described later)
 
 ### Part 40. Parsing HTML with the Beautiful Soup Module
+* _pip install beautifulsoup4_
+* _import bs4_
+* to select for a particular CSS element, find the element using Developer Tools, right click and select "Copy CSS Path"
+```python
+>>> import bs4
+	
+>>> import requests
+	
+>>> res = requests.get('https://www.oaklandca.gov/resources/homeless-encampment-cleanup-schedule')
+	
+>>> res.raise_for_status()
+	
+>>> soup = bs4.BeautifulSoup(res.text)
+	
+>>> soup.select('html body.overflow-x-hidden div.page-holder main section.bg-white.relative.z-0 div.container div.card-grid.grid-equal-height.mb-16 div a.btn.w-full')
+	
+[<a aria-label="Download Homeless Encampment Clean Up Schedule" class="btn w-full" href="https://www.oaklandca.gov/documents/homeless-encampment-clean-up-schedule">Download</a>]
+>>> elems = soup.select('html body.overflow-x-hidden div.page-holder main section.bg-white.relative.z-0 div.container div.card-grid.grid-equal-height.mb-16 div a.btn.w-full')
+>>> elems[0].text.strip()
+```
+* This will show the text of the element you're looking for, stripped of random new lines and nontext data
+* The .select() method will return a list of matching Element objects
+* see [[scrapeOakEvictions.py]] for a not-yet-functioning attempt at first python project to scrape Oakland's encampment eviction schedule
 
 ### Part 41. Controlling the Browser with the Selenium Module
+* _pip install selenium_
+```python
+>>> from selenium import webdriver
+>>> browser = webdriver.Firefox()
+>>> browser.get('https://www.oaklandca.gov/documents/homeless-encampment-clean-up-schedule')
+>>> elem = browser.find_element_by_css_selector('a.btn')
+>>> elem
+<selenium.webdriver.firefox.webelement.FirefoxWebElement (session="1ed04362-bb33-4f2e-9476-3968ac9fc1a8", element="a0ffe0f4-508c-4ae7-b2dd-d00055b8bb1d")>
+>>> elem.click()
+```
+* This will simulate clicking on the link!
+* _searchElem.send_keys('insert text')_
+* _search Elem.submit()_
+* _browser.back()_
+* _browser.forward()_
+* _browser.refresh()_
+* _elem.text_ will display the text in the element
+* FULL DOCUMENTATION: https://selenium-python.readthedocs.org
 
 ## Section 14: Excel, Word, and PDF Documents
-
 ### Part 42. Reading Excel Spreadsheets
 
 ### Part 43. Editing Excel Spreadsheets
@@ -862,13 +964,11 @@ for filename in os.listdir():
 ### Part 45. Reading and Editing Word Documents
 
 ## Section 15: Email
-
 ### Part 46. Sending Emails
 
 ### Part 47. Checking Your Email Inbox
 
 ## Section 16: GUI Automation
-
 ### Part 48. Controlling the Mouse from Python
 
 ### Part 49. Controlling the Keyboard from Python
