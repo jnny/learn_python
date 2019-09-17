@@ -956,23 +956,311 @@ body {
 
 ## Section 14: Excel, Word, and PDF Documents
 ### Part 42. Reading Excel Spreadsheets
+```python
+>>> import openpyxl
+>>> import os
+>>> os.chdir('projects/python/automatetheboringstuff')
+	     
+>>> os.curdir
+	     
+'.'
+>>> workbook = openpyxl.load_workbook('example.xlsx')
+	     
+>>> type(workbook)
+	     
+<class 'openpyxl.workbook.workbook.Workbook'>
+>>> sheet = workbook.get_sheet_by_name('Sheet1')
+	     
+>>> type(sheet)
+	     
+<class 'openpyxl.worksheet.worksheet.Worksheet'>
+>>> workbook.get_sheet_names()
+	     
+['Sheet1', 'Sheet2', 'Sheet3']
+>>> sheet['A1']
+	     
+<Cell 'Sheet1'.A1>
+>>> cell = sheet['A1']
+	     
+>>> cell.value
+	     
+datetime.datetime(2015, 4, 5, 13, 34, 2)
+>>> str(cell.value)
+	     
+'2015-04-05 13:34:02'
+>>> str(sheet['A1'].value)
+	     
+'2015-04-05 13:34:02'
+>>> sheet.cell(row=1, column=2)
+	     
+<Cell 'Sheet1'.B1>
+```
 
 ### Part 43. Editing Excel Spreadsheets
+```python
+>>> import openpyxl
+>>> wb = openpyxl.Workbook()
+	     
+>>> wb
+	     
+<openpyxl.workbook.workbook.Workbook object at 0x7f0daa3e00f0>
+>>> wb.get_sheet_names()
+	     
+['Sheet']
+>>> sheet = wb.get_sheet_by_name('Sheet')
+	     
+>>> sheet
+	     
+<Worksheet "Sheet">
+>>> sheet['A1'].value
+	     
+>>> sheet['A1'].value == None
+	     
+True
+>>> sheet['A1'] = 42
+	     
+>>> sheet['A2'] = 'Hello'
+	     
+>>> import os
+	     
+>>> os.chdir('/home/jnny/projects/python/automatetheboringstuff')
+	     
+>>> wb.save('example.xlxs')
+	     
+>>> sheet2 = wb.create_sheet()
+	     
+>>> wb.get_sheet_names()
+	     
+['Sheet', 'Sheet1']
+>>> sheet2.title = 'Sweetsheet'
+	     
+>>> wb.get_sheet_names()
+	     
+['Sheet', 'Sweetsheet']
+>>> wb.save('example2.xlxs')
+	     
+>>> wb.create_sheet(index=0, title="sweetersheet')
+		    
+SyntaxError: EOL while scanning string literal
+>>> wb.create_sheet(index=0, title='sweetersheet')
+		    
+<Worksheet "sweetersheet">
+>>> wb.save('example3.xlxs') 
+```
 
 ### Part 44. Reading and Editing PDFs
+>>> import PyPDF2
+		    
+>>> import os
+		    
+>>> os.chdir('/home/jnny/projects/python/automatetheboringstuff')
+		    
+>>> pdfFile = open('EncampmentSchedSep2019.pdf', 'rb')
+		    
+>>> reader.numPages
+		    
+Traceback (most recent call last):
+  File "<pyshell#147>", line 1, in <module>
+    reader.numPages
+NameError: name 'reader' is not defined
+>>> reader = pyPDF2.PdfFileReader(pdfFile)
+		    
+Traceback (most recent call last):
+  File "<pyshell#148>", line 1, in <module>
+    reader = pyPDF2.PdfFileReader(pdfFile)
+NameError: name 'pyPDF2' is not defined
+>>> reader = PyPDF2.PdfFileReader(pdfFile)
+		    
+>>> reader.numPages
+		    
+2
+>>> page = reader.getPage(0)
+		    
+>>> page.extractText()
+		    
+'Homeless Encampment Clean-up Schedule \nDate\nDay\nLocation\nIntervention\n10-Sep-19\nTuesday\n14th Ave. between E. 33rd & MacArthur\nClean and clear \n27th Street between MLK Jr. Way and Telegraph Ave. \nEnforcement of prior closure \n11-Sep-19\nWednesday \nSan Leandro between 81st Ave. & 85th Ave.\nClean and Clear\n12-Sep-19\nThursday\nGarbage Run:\nPile Removal (PR) / Garbage Cart Service (GCS) Porta Potty (PP) / \nWash Stations (WS)  Date of Closure (DOC)\n1. Wood St. between 24th & 26th St.\nPR; GCS; PP; WS\n2. Wood St. between 18th & 20th St. \nPR; GCS; PP; WS\n3. 42nd St. between MLK Jr. Way & Telegraph \nPR; GCS; PP; WS\n4. 36th St. & MLK Jr. Way\nPR; GCS; PP; WS\n5. 34th St. & Telegraph Ave.\nPR; GCS; PP; WS\n6. VA (San Pablo and Grand)\nPR; GCS; PP; WS\n7. MLK Jr. Way between Grand & 25th St. / 23rd Street between MLK Jr. \nWay and€ San Pablo Ave.€ € € € € € € € € € € € € € €€\nPR; GCS; PP; WS\n8. Webster St. - Under Hwy 880 and 6th / 5th St. & Webster \nPR; GCS; PP; WS\n9. 77th Ave. near Hawley St. \nPR; GCS; PP; WS\n10. Union Point Park \nGCS\n11. 28th St. and Ettie€ \nPR; GCS; PP; WS\n12. 5th St. between Adeline and Market \nPR; GCS; PP; WS\n13. E. 8th Street and Alameda Ave. / High St.\nPR; GCS; PP; WS\n14. 14th Ave. between E. 33rd & MacArthur\nPR; GCS; PP; WS\n15. Kirkham St. between 5\nth\n St. and 7\nth\n St. and 5\nth\n St. between Mandela \nParkway and Kirkham\nPR; GCS\n16. Harrison St. and Santa Clara Ave.\nPR; GCS; PP; WS\n17. 1429 Bancroft Way between International and Bancroft Ave.\nPR; GCS; PP; WS\n18. Russet and Moorpark St.\nPR; GCS; PP; WS\n19. Oakport @ 66th Ave.\nPR; GCS; PP; WS\n20. E. 12th St. median between 14th Ave. and 19th Ave.\nPR; GCS \n21. Kirkham St. between 16th St. and 18th St. \nPR; GCS; PP; WS\n22. Bond between 42nd Ave. and High St.\nPR; GCS; PP; WS\n13-Sep-19\nFriday\ncont. Pile Removal \nClinton Park \nEnforcement of prior closure \n* The schedule is created in advance and is subject to change at any time with out further notice.\n'
+
+>>> for pageNum in range(reader.numPages):
+		    print(reader.getPage(pageNum).extractText())
+
+		    
+Homeless Encampment Clean-up Schedule 
+Date
+Day
+Location
+Intervention
+10-Sep-19
+Tuesday
+14th Ave. between E. 33rd & MacArthur
+Clean and clear 
+27th Street between MLK Jr. Way and Telegraph Ave. 
+Enforcement of prior closure 
+11-Sep-19
+Wednesday 
+San Leandro between 81st Ave. & 85th Ave.
+Clean and Clear
+12-Sep-19
+Thursday
+Garbage Run:
+Pile Removal (PR) / Garbage Cart Service (GCS) Porta Potty (PP) / 
+Wash Stations (WS)  Date of Closure (DOC)
+1. Wood St. between 24th & 26th St.
+PR; GCS; PP; WS
+2. Wood St. between 18th & 20th St. 
+PR; GCS; PP; WS
+3. 42nd St. between MLK Jr. Way & Telegraph 
+PR; GCS; PP; WS
+4. 36th St. & MLK Jr. Way
+PR; GCS; PP; WS
+5. 34th St. & Telegraph Ave.
+PR; GCS; PP; WS
+6. VA (San Pablo and Grand)
+PR; GCS; PP; WS
+7. MLK Jr. Way between Grand & 25th St. / 23rd Street between MLK Jr. 
+Way and€ San Pablo Ave.€ € € € € € € € € € € € € € €€
+PR; GCS; PP; WS
+8. Webster St. - Under Hwy 880 and 6th / 5th St. & Webster 
+PR; GCS; PP; WS
+9. 77th Ave. near Hawley St. 
+PR; GCS; PP; WS
+10. Union Point Park 
+GCS
+11. 28th St. and Ettie€ 
+PR; GCS; PP; WS
+12. 5th St. between Adeline and Market 
+PR; GCS; PP; WS
+13. E. 8th Street and Alameda Ave. / High St.
+PR; GCS; PP; WS
+14. 14th Ave. between E. 33rd & MacArthur
+PR; GCS; PP; WS
+15. Kirkham St. between 5
+th
+ St. and 7
+th
+ St. and 5
+th
+ St. between Mandela 
+Parkway and Kirkham
+PR; GCS
+16. Harrison St. and Santa Clara Ave.
+PR; GCS; PP; WS
+17. 1429 Bancroft Way between International and Bancroft Ave.
+PR; GCS; PP; WS
+18. Russet and Moorpark St.
+PR; GCS; PP; WS
+19. Oakport @ 66th Ave.
+PR; GCS; PP; WS
+20. E. 12th St. median between 14th Ave. and 19th Ave.
+PR; GCS 
+21. Kirkham St. between 16th St. and 18th St. 
+PR; GCS; PP; WS
+22. Bond between 42nd Ave. and High St.
+PR; GCS; PP; WS
+13-Sep-19
+Friday
+cont. Pile Removal 
+Clinton Park 
+Enforcement of prior closure 
+* The schedule is created in advance and is subject to change at any time with out further notice.
+```
 
 ### Part 45. Reading and Editing Word Documents
+* lost these notes, #TODO comeback later
 
 ## Section 15: Email
 ### Part 46. Sending Emails
-
+```python
+>>> import smtplib
+		    
+>>> conn = smtplib.SMTP('smtp.gmail.com', 587)
+		    
+>>> type(conn)
+		    
+<class 'smtplib.SMTP'>
+>>> conn
+		    
+<smtplib.SMTP object at 0x7f4cf3a757f0>
+>>> conn.ehlo()
+		    
+(250, b'smtp.gmail.com at your service, [99.36.163.170]\nSIZE 35882577\n8BITMIME\nSTARTTLS\nENHANCEDSTATUSCODES\nPIPELINING\nCHUNKING\nSMTPUTF8')
+>>> conn.starttls()
+		    
+(220, b'2.0.0 Ready to start TLS')
+>>> conn.login('tunabananas@gmail.com', 'idjreepntwfkluqw')
+		    
+(235, b'2.7.0 Accepted')
+>>> conn.sendmail('tunabananas@gmail.com', 'jenny@peoplesopen.net', 'Subject: Eviction Schedule\n\nHere is this month\'s encampment eviction schedule: ')
+		    
+{}
+>>> conn.quit()
+		    
+(221, b'2.0.0 closing connection a21sm470235pju.21 - gsmtp')
+>>> 
+```
 ### Part 47. Checking Your Email Inbox
+```python
+>>> import imapclient
+		    
+>>> conn = imapclient.IMAPClient('imap.gmail.com', ssl=True)
+		    
+>>> conn.login('tunabananas@gmail.com', 'idjreepntwfkluqw')
+		    
+b'tunabananas@gmail.com authenticated (Success)'
+>>> conn.select_folder('INBOX', readonly=True)
+		    
+{b'PERMANENTFLAGS': (), b'FLAGS': (b'\\Answered', b'\\Flagged', b'\\Draft', b'\\Deleted', b'\\Seen', b'$Forwarded', b'$NotPhishing', b'$Phishing', b'Junk', b'boxbe_a', b'boxbe_b'), b'UIDVALIDITY': 2, b'EXISTS': 141609, b'RECENT': 0, b'UIDNEXT': 214119, b'HIGHESTMODSEQ': 30612894, b'READ-ONLY': [b'']}
+>>> UIDs = conn.search(['SINCE 12-Sep-2019'])
+>>> conn.list_folders()
+>>> conn.select_folder('INBOX', readonly=FALSE)
+```
+* More: https://imapclient.readthedocs.org
 
 ## Section 16: GUI Automation
 ### Part 48. Controlling the Mouse from Python
+* it's a robotic arm!
+* can write a script to directly control mice and keyboard
+```python
+>>> import pyautogui
+>>> pyautogui.size()
+>>> width, height = pyautogui.size()
+Size(width=3286, height=1422)
+>>> pyautogui.position()
+Point(x=1910, y=635)
+# this changes depending on where your mouse pointer is at
+```
+* MORE: https://pyautogui.readthedocs.org
+* _pyautogui.moveTo(10, 10, duration=1.5)
+* _pyautogui.moveRel(0, -100, duration=1)
+* _pyautogui.click(339.38)_ - will click at this location
+* _pyautogui.dragRel(0, distance, duration)
+
+Failsafe: check if your mouse is in top left corner and implements a failsafe
+
+* pyautogi.displayMousePosition()
+    * will show you live mouse position
 
 ### Part 49. Controlling the Keyboard from Python
+* keyboard-controlling functions
+* pyautogui.typewrite() - sends virtual keycommands
+* can separate functions with a semicolon
+* _pyautogui.ty_ - typewriter function
+* pyautogui.click(100,100);pyautogui.ty
+---> pewrite('Hello world!', interval=0.2)
+* pyautogui.KEYBOARD_KEYS:
+    * will show all the names of keyboard keys you can use
+* pyautogui.press('F1') - will press a single key
+* pyatogui.hotkey('ctrl', 'o')  - can be used for keyboard shortcuts
 
 ### Part 50. Screenshots and Image Recognition
+* need a way to let the program know what's on the screen
+* learn more in Chapter 17
+* pip install pyautogui
+* pyautogui.screenshot(/projects/python/screenshotexample.png')
+pyautogui.locateOnScreen(pyImage.png)
+(807,204,52,41)
+* pyautogui.moveTo((932, 336), duration=1)
+
+* MORE AT: https://pyautogui.readthedocs.org
 
 ### Part 51. Congratulations! (And next steps...)
+
